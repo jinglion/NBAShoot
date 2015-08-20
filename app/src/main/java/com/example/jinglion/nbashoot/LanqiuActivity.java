@@ -1,20 +1,24 @@
 package com.example.jinglion.nbashoot;
 
+import android.app.Activity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.example.jinglion.nbashoot.view.sheng;
 
 import static com.example.jinglion.nbashoot.Constants.changL.*;
 
 import java.util.HashMap;
 
-public class LanqiuActivity extends AppCompatActivity {
+public class LanqiuActivity extends Activity {
+
+    private sheng gamesound;
 
     public Handler hd;
     MediaPlayer mpBack;//游戏背景音乐
@@ -29,7 +33,7 @@ public class LanqiuActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置窗口全屏显示
-        setContentView(R.layout.mian);
+        setContentView(R.layout.main);
 
         new Thread(){
             @Override
@@ -52,7 +56,8 @@ public class LanqiuActivity extends AppCompatActivity {
                 super.handleMessage(msg);
                 switch (msg.what){
                     case GAME_SOUND:
-
+                        gamesound = new sheng(LanqiuActivity.this);
+                        setContentView(gamesound);
                         break;
                 }
             }
