@@ -1,6 +1,7 @@
 package com.example.jinglion.nbashoot;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.jinglion.nbashoot.Thread.daojiThread;
 import com.example.jinglion.nbashoot.view.sheng;
 import com.example.jinglion.nbashoot.view.zhuView;
 
@@ -67,6 +69,29 @@ public class LanqiuActivity extends Activity {
                         gamemenu=new zhuView(LanqiuActivity.this);
                         setContentView(gamemenu);
                         break;
+                    case GAME_LOAD:
+                        MENU_FLAG = false;//设置MenuThread标志位为false
+                        setContentView(R.layout.loading);
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                try {
+                                    sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                hd.sendEmptyMessage(GAME_PLAY);
+                            }
+                        }.start();
+                        break;
+                    case  GAME_PLAY:
+                        score = 0;//还原得分
+                        deadtimes = 60;//还原倒计时
+                        SOUND_FLAG = SOUND_MEMORY;//还原声音选择
+                        DEADTIME_FLAG = true;//开启倒计时
+                        new daojiThread(LanqiuActivity.this).start();//开启倒计时线程
+
+                        break;
                 }
             }
         };
@@ -94,5 +119,29 @@ public class LanqiuActivity extends Activity {
         soundPoolMap.put(2, soundPool.load(this, R.raw.over, 1));
     }
 
+    public void playSound(int sound, int loop){
+        AudioManager mgr = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        float streamVoluneCurrent = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float streamVolumeMax = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
+        float volume = streamVoluneCurrent/streamVolumeMax;
+        /**
+         * 指定当前播放的音效
+         * 左声道
+         * 右声道
+         * 流的优先级，值越大优先级高，影响当同时播放数量超出了最大支持数时SoundPool对该流的处理
+         * 循环播放的次数，0为值播放一次，-1为无限循环，其他值为播放loop+1次（例如，3为一共播放4次）.
+         * 播放的速率，范围0.5-2.0(0.5为一半速率，1.0为正常速率，2.0为两倍速率)
+         */
+        soundPool.play(soundPoolMap.get(sound), volume, volume, 1, loop, 0.5f);
+    }
+
+    public void waitTwoSeconds()
+    {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

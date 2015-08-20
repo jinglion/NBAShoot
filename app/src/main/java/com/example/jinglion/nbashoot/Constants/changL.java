@@ -5,6 +5,8 @@ package com.example.jinglion.nbashoot.Constants;
  */
 public class changL {
 
+    public static int score=0;//得分
+    public static int deadtimes=60;//游戏倒计时
 
     //菜单界面
     public static final int GAME_SOUND=1;
