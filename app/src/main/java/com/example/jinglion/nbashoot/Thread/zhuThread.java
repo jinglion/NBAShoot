@@ -22,8 +22,25 @@ public class zhuThread extends Thread {
         Canvas canvas;
         while (changL.MENU_FLAG){
             canvas = null;
-
+            if (true){
+                try {
+                    canvas = this.holder.lockCanvas();
+                    synchronized (this.holder){
+                        cc.onDraw(canvas);//用户按下标签后，重绘按钮，菜单栏标签享有突出，产生动画效果
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+                } finally {
+                    if (canvas!=null){
+                        this.holder.unlockCanvasAndPost(canvas);
+                    }
+                }
+            }
+            try {
+                sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 }

@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 
 import com.example.jinglion.nbashoot.LanqiuActivity;
 import com.example.jinglion.nbashoot.R;
+import com.example.jinglion.nbashoot.Thread.zhuThread;
 
 import static  com.example.jinglion.nbashoot.Constants.changL.*;
 
@@ -43,7 +44,7 @@ public class zhuView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         if(canvas==null) return;
         super.onDraw(canvas);
         canvas.drawBitmap(backgroud, 0, 0, paint);
@@ -62,7 +63,7 @@ public class zhuView extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_DOWN:
                 if(x>=0&&x<=105&&y>=300&&y<=335)
                 {
-                    left1=LEFT+20;
+                    left1=LEFT+20; //第一项标题栏位置向右产生一定偏移
                     left2=LEFT;
                     left3=LEFT;
                     left4=LEFT;
@@ -70,7 +71,7 @@ public class zhuView extends SurfaceView implements SurfaceHolder.Callback {
                 else if(x>=0&&x<=105&&y>=340&&y<=375)
                 {
                     left1=LEFT;
-                    left2=LEFT+20;
+                    left2=LEFT+20; //第二项标题栏位置向右产生一定偏移
                     left3=LEFT;
                     left4=LEFT;
                 }
@@ -78,7 +79,7 @@ public class zhuView extends SurfaceView implements SurfaceHolder.Callback {
                 {
                     left1=LEFT;
                     left2=LEFT;
-                    left3=LEFT+20;
+                    left3=LEFT+20; //第三项标题栏位置向右产生一定偏移
                     left4=LEFT;
                 }
                 else if(x>=0&&x<=105&&y>=420&&y<=455)
@@ -86,9 +87,9 @@ public class zhuView extends SurfaceView implements SurfaceHolder.Callback {
                     left1=LEFT;
                     left2=LEFT;
                     left3=LEFT;
-                    left4=LEFT+20;
+                    left4=LEFT+20; //第四项标题栏位置向右产生一定偏移
                 }
-
+                new zhuThread(this).start();
                 break;
             case MotionEvent.ACTION_UP:
                 if(x>=0&&x<=105&&y>=300&&y<=335)
