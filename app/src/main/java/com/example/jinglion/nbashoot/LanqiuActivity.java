@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.jinglion.nbashoot.view.sheng;
+import com.example.jinglion.nbashoot.view.zhuView;
 
 import static com.example.jinglion.nbashoot.Constants.changL.*;
 
@@ -18,12 +19,14 @@ import java.util.HashMap;
 
 public class LanqiuActivity extends Activity {
 
-    private sheng gamesound;
+    private zhuView gamemenu;
+
+    private sheng gamesound;  //声音类界面
 
     public Handler hd;
     MediaPlayer mpBack;//游戏背景音乐
     SoundPool soundPool;//声音,l可以播一些短的反应速度要求高的声音，比如游戏中的爆破声
-    HashMap<Integer, Integer> soundPoolMap;
+    HashMap<Integer, Integer> soundPoolMap;//声音池中声音ID与自定义声音ID的Map
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +62,20 @@ public class LanqiuActivity extends Activity {
                         gamesound = new sheng(LanqiuActivity.this);
                         setContentView(gamesound);
                         break;
+                    case GAME_MENU:
+                        MENU_FLAG=true;//设置MenuThread标志位为true
+                        gamemenu=new zhuView(LanqiuActivity.this);
+                        setContentView(gamemenu);
+                        break;
                 }
             }
         };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     /**

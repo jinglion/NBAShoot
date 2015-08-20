@@ -16,6 +16,8 @@ public class changL {
     public static final int GAME_OVER=7;
     public static final int RETRY=8;
 
+    public static float LEFT=-55f; //菜单位置
+
     //线程标志位
     public static boolean SOUND_FLAG=true;//声音	标记
     public static boolean SOUND_MEMORY=false;//用于记录声音玩家的选择
