@@ -2,7 +2,8 @@ package com.example.jinglion.nbashoot.view;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.util.AttributeSet;
+
+import com.example.jinglion.nbashoot.entities.lanban;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -27,6 +28,7 @@ public class shiwan extends GLSurfaceView {
 
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+
 
         }
 
